@@ -29,7 +29,12 @@ const SiteHeader = () => {
 
   const menuOptions = [
     { label: "Home", path: "/" },
-    ...(isAuthenticated ? [{ label: "Favorites", path: "/movies/favorites" }] : []),
+    ...(isAuthenticated
+      ? [
+        { label: "Favorites", path: "/movies/favorites" },
+        { label: "My Reviews", path: "/my-reviews" },
+      ]
+      : []),
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Trending today", path: "/movies/trending/today" },
     { label: "Top rated", path: "/movies/top_rated" },
@@ -102,7 +107,7 @@ const SiteHeader = () => {
             transformOrigin={{ vertical: "top", horizontal: "right" }}
           >
             {menuOptions.map((opt) => (
-              <MenuItem key={opt.label} onClick={() => handleSelect(opt.path)}>
+              <MenuItem key={opt.label} onClick={() => handleSelect(opt)}>
                 {opt.label}
               </MenuItem>
             ))}

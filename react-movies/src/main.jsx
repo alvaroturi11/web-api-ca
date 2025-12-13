@@ -22,6 +22,8 @@ import { AuthProvider } from "./contexts/authContext";
 import LoginPage from "./pages/loginPage.jsx";
 import SignupPage from "./pages/signupPage.jsx";
 import ProtectedRoute from "./components/protectedRoute/index.jsx";
+import MyReviewsPage from "./pages/myReviewsPage.jsx";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -56,6 +58,7 @@ const App = () => {
                 <Route path="/movies/top_rated" element={<TopRatedMoviesPage />} />
                 <Route path="/people/popular" element={<PopularPeoplePage />} />
                 <Route path="/person/:id" element={<PersonDetailsPage />} />
+                <Route path="/my-reviews" element={<ProtectedRoute> <MyReviewsPage /> </ProtectedRoute>} />
               </Routes>
             </MoviesContextProvider>
           </AuthProvider>

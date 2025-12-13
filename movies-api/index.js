@@ -5,6 +5,7 @@ import moviesRouter from './api/movies';
 import usersRouter from './api/users';
 import cors from 'cors';
 import authenticate from './authenticate';
+import reviewsRouter from './api/reviews';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use(express.json());
 
 app.use('/api/movies', moviesRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/reviews', reviewsRouter);
 
 app.use(errHandler);
 
