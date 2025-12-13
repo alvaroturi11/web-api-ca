@@ -11,6 +11,8 @@ import { useNavigate } from "react-router";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useAuth } from "../../contexts/authContext";
+
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
@@ -23,20 +25,36 @@ const SiteHeader = () => {
 
   const navigate = useNavigate();
 
+  const { isAuthenticated, username, logout } = useAuth();
+
   const menuOptions = [
     { label: "Home", path: "/" },
-    { label: "Favorites", path: "/movies/favorites" },
+    ...(isAuthenticated ? [{ label: "Favorites", path: "/movies/favorites" }] : []),
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Trending today", path: "/movies/trending/today" },
     { label: "Top rated", path: "/movies/top_rated" },
     { label: "Popular people", path: "/people/popular" },
   ];
 
+  const authOptions = isAuthenticated
+    ? [{ label: "Logout", action: "logout" }]
+    : [
+      { label: "Login", path: "/login" },
+      { label: "Signup", path: "/signup" },
+    ];
+
   const handleOpenMenu = (e) => setAnchorEl(e.currentTarget);
   const handleCloseMenu = () => setAnchorEl(null);
-  const handleSelect = (path) => {
+  const handleSelect = (opt) => {
     setAnchorEl(null);
-    navigate(path);
+
+    if (opt.action === "logout") {
+      logout();
+      navigate("/");
+      return;
+    }
+
+    if (opt.path) navigate(opt.path);
   };
   /*const handleMenuSelect = (pageURL) => {
     setAnchorEl(null);
@@ -57,6 +75,12 @@ const SiteHeader = () => {
           <Typography variant="body1" sx={{ opacity: 0.85, ml: 3, flexGrow: 1 }}>
             All you ever wanted to know about Movies!
           </Typography>
+
+          {isAuthenticated && (
+            <Typography variant="body2" sx={{ opacity: 0.9, mr: 2 }}>
+              Hi, {username}
+            </Typography>
+          )}
 
           <Button
             color="inherit"
@@ -79,6 +103,15 @@ const SiteHeader = () => {
           >
             {menuOptions.map((opt) => (
               <MenuItem key={opt.label} onClick={() => handleSelect(opt.path)}>
+                {opt.label}
+              </MenuItem>
+            ))}
+
+            {/* Divider feel */}
+            <MenuItem disabled>────────</MenuItem>
+
+            {authOptions.map((opt) => (
+              <MenuItem key={opt.label} onClick={() => handleSelect(opt)}>
                 {opt.label}
               </MenuItem>
             ))}
