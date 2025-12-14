@@ -64,3 +64,35 @@ export const getMovieCredits = async (id) => {
     `/movie/${id}/credits?api_key=${process.env.TMDB_KEY}&language=en-US`
   );
 };
+
+
+// PEOPLE
+export const getPopularPeople = async (page = 1) => {
+  return fetchFromTMDB(
+    `/person/popular?api_key=${process.env.TMDB_KEY}&language=en-US&page=${page}`
+  );
+};
+
+export const getPerson = async (id) => {
+  return fetchFromTMDB(
+    `/person/${id}?api_key=${process.env.TMDB_KEY}&language=en-US`
+  );
+};
+
+export const getPersonImages = async (id) => {
+  return fetchFromTMDB(
+    `/person/${id}/images?api_key=${process.env.TMDB_KEY}`
+  );
+};
+
+export const getPersonMovieCredits = async (id) => {
+  return fetchFromTMDB(
+    `/person/${id}/movie_credits?api_key=${process.env.TMDB_KEY}&language=en-US`
+  );
+};
+
+export const getPersonCredits = async (id) => {
+  return fetchFromTMDB(
+    `/person/${id}/combined_credits?api_key=${process.env.TMDB_KEY}&language=en-US`
+  );
+};

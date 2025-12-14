@@ -261,6 +261,18 @@ export const getPerson = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;
 
+  return fetch(`${API_BASE}/people/${id}`).then(async (response) => {
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.status_message || "Something went wrong");
+    }
+    return response.json();
+  });
+};
+/*export const getPerson = ({ queryKey }) => {
+  const [, idPart] = queryKey;
+  const { id } = idPart;
+
   return fetch(
     `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US`
   )
@@ -275,9 +287,21 @@ export const getPerson = ({ queryKey }) => {
     .catch((error) => {
       throw error;
     });
-};
+};*/
 
 export const getPersonImages = ({ queryKey }) => {
+  const [, idPart] = queryKey;
+  const { id } = idPart;
+
+  return fetch(`${API_BASE}/people/${id}/images`).then(async (response) => {
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.status_message || "Something went wrong");
+    }
+    return response.json();
+  });
+};
+/*export const getPersonImages = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;
 
@@ -295,9 +319,21 @@ export const getPersonImages = ({ queryKey }) => {
     .catch((error) => {
       throw error;
     });
-};
+};*/
 
 export const getPersonMovieCredits = ({ queryKey }) => {
+  const [, idPart] = queryKey;
+  const { id } = idPart;
+
+  return fetch(`${API_BASE}/people/${id}/movie_credits`).then(async (response) => {
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.status_message || "Something went wrong");
+    }
+    return response.json();
+  });
+};
+/*export const getPersonMovieCredits = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;
 
@@ -315,9 +351,21 @@ export const getPersonMovieCredits = ({ queryKey }) => {
     .catch((error) => {
       throw error;
     });
-};
+};*/
 
 export const getPopularPeople = ({ queryKey }) => {
+  const [, pagePart] = queryKey;
+  const { page } = pagePart;
+
+  return fetch(`${API_BASE}/people/popular?page=${page}`).then(async (response) => {
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.status_message || "Something went wrong");
+    }
+    return response.json();
+  });
+};
+/*export const getPopularPeople = ({ queryKey }) => {
   const [, pagePart] = queryKey;
   const { page } = pagePart;
 
@@ -335,9 +383,21 @@ export const getPopularPeople = ({ queryKey }) => {
     .catch((error) => {
       throw error;
     });
-};
+};*/
 
 export const getPersonCredits = ({ queryKey }) => {
+  const [, idPart] = queryKey;
+  const { id } = idPart;
+
+  return fetch(`${API_BASE}/people/${id}/combined_credits`).then(async (response) => {
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.status_message || "Something went wrong");
+    }
+    return response.json();
+  });
+};
+/*export const getPersonCredits = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;
 
@@ -355,4 +415,4 @@ export const getPersonCredits = ({ queryKey }) => {
     .catch((error) => {
       throw error;
     });
-};
+};*/
